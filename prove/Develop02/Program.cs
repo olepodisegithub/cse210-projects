@@ -11,8 +11,8 @@ class Program
     //   do not loss the entries forgetting that they have not saved them.
 
     //2. When a user write a new entry, load journal, save journal and quit the program,
-    //   there is always a question asked to confirm if the user what to procceed with the 
-    //   choosen action.
+    //   there is always a question asked to confirm if the user what to proceed with the 
+    //   chosen action.
     //   This was to make sure that user do not make mistakes by doing actions they would 
     //   have not wanted to do at that time.
 
