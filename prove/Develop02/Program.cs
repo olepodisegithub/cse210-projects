@@ -22,10 +22,12 @@ class Program
     static int _selectedMenuNumber = 0;
     static Boolean quit = false;
     static String _entryStatus = "";
+
+    static String _lastLoadedFileName = "";
     static void Main(string[] args)
     {
 
-         SetupProgram();
+        SetupProgram();
 
         Console.Write("");
         Console.WriteLine("Welcome to Oats Journal Program");
@@ -37,6 +39,7 @@ class Program
             //display the menu items
             DisplayMenuItems();
 
+            //check which menu item have been selected
             if (_selectedMenuNumber == 1)
             {
                 Boolean _writeEntry = true;
@@ -44,14 +47,16 @@ class Program
                 String _response = "";
                 while (_writeEntry == true)
                 {
+                    
                     Console.WriteLine("");
-
+                    
+                    //display random prompt and get the response
                     _prompt = getRandomPrompt();
-                    Console.WriteLine(_prompt);
-                    if (getEnteredResponse("Do you want to continue writing new journal entry for this (yes or no)?:").ToLower() == "yes")
+                    Console.WriteLine($"PROMPT: {_prompt}");
+                    if (getEnteredResponse("Write new journal entry for this prompt (yes or no)?:").ToLower() == "yes")
                     {
                         
-                       _response = getEnteredResponse("Enter you response:" + _prompt);
+                       _response = getEnteredResponse("Enter you response:");
 
                         Entry _newEntry = new Entry();
                         _newEntry._date = DateTime.Now.ToShortDateString();
@@ -72,39 +77,55 @@ class Program
             else if (_selectedMenuNumber == 2)
             {
                 Console.WriteLine("");
-                if (getEnteredResponse("Do you want to save the journal (yes or no)?:").ToLower() == "yes")
+                DisplayLastLoadedFileName();
+                 if ( _entryStatus == "To Save" || _lastLoadedFileName != "")
                 {
-                    _journal._fileLocation = getEnteredResponse("Enter file name to save to (like Journal.txt)?:");
-                    _journal.SaveJournal();
-                    _entryStatus = "";
+                    if (getEnteredResponse("Save the journal entries (yes or no)?:").ToLower() == "yes")
+                    {
+                        //get file name and save the journal
+                        _journal._fileLocation = getEnteredResponse("Enter file name to save to (like Journal.txt)?:");
+                        _journal.SaveJournal();
+                        _entryStatus = "";
+                    }
+                    Console.WriteLine("##### Journal saved ####");
                 }
-                Console.WriteLine("##### Journal saved ####");
+                else
+                {
+                    Console.WriteLine("##### Nothing to save ####");
+                }
             }
             else if (_selectedMenuNumber == 3)
             {
+                //display the journal
                 Console.WriteLine("");
+                DisplayLastLoadedFileName();
                 _journal.DisplayJournal();
             }
             else if (_selectedMenuNumber == 4)
             {
+                //load journal from a specified file
                 Console.WriteLine("");
+                DisplayLastLoadedFileName();
                 if ( _entryStatus == "To Save")
                 {
-                    if (getEnteredResponse("Journal has new entries that need to be saved. Proceed to load anyway (yes or no)?:").ToLower() == "yes")
+                    if (getEnteredResponse("There are new journal entries that need to be saved. Proceed to load anyway (yes or no)?:").ToLower() == "yes")
                     {
                         _journal._fileLocation = getEnteredResponse("Enter file name to load from (like Journal.txt)?:");
                         _journal.LoadJournal();
+                        _lastLoadedFileName = _journal._fileLocation;
                     }
                 }
                 else
                 {
                     _journal._fileLocation = getEnteredResponse("Enter file name to load from (like Journal.txt)?:");
                     _journal.LoadJournal();
+                    _lastLoadedFileName = _journal._fileLocation;
                 }
                 Console.WriteLine("##### Journal loaded ####");
             }
             else if (_selectedMenuNumber == 5)
             {
+                //quit
                 Console.WriteLine("");
                 if ( _entryStatus == "To Save")
                 {
@@ -121,6 +142,14 @@ class Program
                     }
                 }
             }
+        }
+    }
+
+    public static void DisplayLastLoadedFileName()
+    {
+        if (_lastLoadedFileName != "")
+        {
+             Console.WriteLine($"The last loaded journal file name is ({_lastLoadedFileName})");
         }
     }
 
