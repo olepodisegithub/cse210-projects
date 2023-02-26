@@ -36,6 +36,7 @@ public class ListingActivity : Activiy
         Console.WriteLine("List as many responses you can to these prompt:");
         DisplayRandomPrompt();
 
+        Console.WriteLine("x");
         DisplayCountDown("Start in..",5);
 
         ClearLine();
@@ -43,7 +44,7 @@ public class ListingActivity : Activiy
         ListCountDown();
 
         DisplayEndingMessage();
-        DisplaySpinner(3);
+        DisplaySpinner(4);
     }
 
     public void DisplayRandomPrompt()
@@ -56,7 +57,6 @@ public class ListingActivity : Activiy
 
     public void ListCountDown()
     {
-        Boolean list = true;
         System.Timers.Timer timer = new (interval: 1000 );
         
         int countLeft = ((GetDuration() * 1000));
@@ -65,27 +65,26 @@ public class ListingActivity : Activiy
 		{
             countLeft = countLeft - 1000;
             
+           SaveItem(Console.ReadLine());
+           
             if (countLeft <= 0)
             {
                 timer.Stop();
-                list = false;
             }
 		}
 
         timer.Elapsed += ( sender, e ) => HandleTimer(sender, e);
 		timer.Start();
 
-        while(list == true)
-        {
-            while (Console.ReadKey().Key == ConsoleKey.Enter) 
-            {
-                _items.Add(new ListedItems(Console.ReadLine()));
-            }
-        }
         System.Threading.Thread.Sleep((GetDuration() * 1000));
 
         timer.Dispose();
         Console.WriteLine("");
-        Console.WriteLine($"You listed {_items.Count()}");
+        Console.WriteLine($"You listed {_items.Count()} items");
+    }
+
+    public void SaveItem(string desc)
+    {
+        _items.Add(new ListedItems(desc));
     }
 }

@@ -49,7 +49,7 @@ class Program
             }
             else if (_selectedMenueNumber == 4)
             {
-                Environment. Exit(0);
+                quit = true;
             }
 
             //Console.WriteLine();
@@ -68,6 +68,7 @@ class Program
 
     public static void DisplayMenue()
     {
+        Console.WriteLine("");
         Console.WriteLine($"Menue Options:");
         foreach (Menue item in _menueItems)
         {

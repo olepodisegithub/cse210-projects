@@ -2,6 +2,7 @@ public class ReflectionActivity : Activiy
 {
     private List<Prompts> _promptList = new List<Prompts>();
     private List<ReflectionQuestion> _refQuestions = new List<ReflectionQuestion>();
+    System.Timers.Timer _reflectTimer = new (interval: 125 );
     public ReflectionActivity(string activityname,
                             string description,
                             string preparingmessage,
@@ -43,6 +44,7 @@ public class ReflectionActivity : Activiy
         DisplaySpinner(3);
 
         Console.Clear();
+        Console.Clear();
         Console.WriteLine("Consider the following prompt!");
         Console.WriteLine("");
         DisplayRandomPrompt();
@@ -56,6 +58,7 @@ public class ReflectionActivity : Activiy
 
         Console.Clear();
         ReflectionCountDown();
+
         DisplayEndingMessage();
         DisplaySpinner(3);
     }
@@ -70,7 +73,6 @@ public class ReflectionActivity : Activiy
 
     public void DisplayRandomQuestion()
     {
-        Console.Clear();
         var rnd = new Random();
         rnd = new Random();
         int index = rnd.Next(_refQuestions.Count);
@@ -91,6 +93,8 @@ public class ReflectionActivity : Activiy
 
             if(decide == "Display Question")
             {
+                Console.Clear();
+                DisplayRandomPrompt();
                 DisplayRandomQuestion();
                 decide = "Displayed";
             }
@@ -101,10 +105,16 @@ public class ReflectionActivity : Activiy
             }
             else if(decide == "Spinned")
             {
+                Console.Clear();
+                DisplayRandomPrompt();
                 DisplayRandomQuestion();
                 decide = "Displayed";
             }
             else if(decide == "Spinning")
+            {
+                
+            }
+            else
             {
                 
             }
@@ -113,6 +123,7 @@ public class ReflectionActivity : Activiy
             {
                 timer.Stop();
                 decide = "";
+                _reflectTimer.Stop();
             }
 		}
 
@@ -123,6 +134,67 @@ public class ReflectionActivity : Activiy
         System.Threading.Thread.Sleep((GetDuration() * 1000));
 
         timer.Dispose();
+        _reflectTimer.Dispose();
         Console.WriteLine("_");
+    }
+
+    public string DisplayReflectionSpinner(int duration)
+    {
+        try
+        {
+            int spinnumber = 1;
+        
+            Console.WriteLine("x");
+
+            _reflectTimer = new (interval: 125 );
+
+            int countLeft = (duration * 1000);
+            void HandleTimer(object sender, EventArgs e)
+            {
+                countLeft = countLeft - 125;
+                
+                ClearLine();
+
+                if(spinnumber == 1)
+                {
+                    SpinnerOne();
+                }
+                else if(spinnumber == 2)
+                {
+                    SpinnerTwo();
+                }
+            
+
+                if(spinnumber == 2)
+                {
+                    spinnumber = 1;
+                }
+                else
+                {
+                    spinnumber = spinnumber + 1;
+                }         
+
+                if (countLeft <= 0)
+                {
+                    _reflectTimer.Stop();
+                }
+
+            }
+
+            _reflectTimer.Elapsed += ( sender, e ) => HandleTimer(sender, e);
+            _reflectTimer.Start();
+
+            //Console.ReadLine(); // To make sure the console app keeps running.
+            System.Threading.Thread.Sleep(duration * 1000);
+        
+            _reflectTimer.Dispose();       
+            Console.WriteLine("_");
+           
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine("IOException source: ", e.Source);
+        }
+         return "Spinned";
     }
 }

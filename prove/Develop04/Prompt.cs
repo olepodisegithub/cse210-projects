@@ -8,7 +8,7 @@ public class Prompts
     }
     public void DisplayPrompt()
     {
-        Console.WriteLine($"{_description}");
+        Console.WriteLine($"Prompt: {_description}");
     }
 
 }

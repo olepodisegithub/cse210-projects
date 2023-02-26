@@ -77,7 +77,7 @@ public class Activiy
 		{
             countLeft = countLeft - 1000;
             ClearLine();
-			Console.WriteLine($"{displaytext}{(countLeft/1000)}");
+			Console.WriteLine($"{displaytext}{(countLeft/1000)-1}");
             if (countLeft <= 0)
             {
                 timer.Stop();
@@ -157,58 +157,5 @@ public class Activiy
         Console.SetCursorPosition(0, Console.CursorTop);
         Console.Write(new string(' ', Console.WindowWidth)); 
         Console.SetCursorPosition(0, Console.CursorTop - 1);
-    }
-
-    public string DisplayReflectionSpinner(int duration)
-    {
-        int spinnumber = 1;
-
-        System.Timers.Timer timer = new (interval: 125 );
-        
-        Console.WriteLine("x");
-
-        int countLeft = (duration * 1000);
-        void HandleTimer(object sender, EventArgs e)
-		{
-            countLeft = countLeft - 125;
-			
-            ClearLine();
-
-            if(spinnumber == 1)
-            {
-                SpinnerOne();
-            }
-            else if(spinnumber == 2)
-            {
-                SpinnerTwo();
-            }
-           
-
-            if(spinnumber == 2)
-            {
-                spinnumber = 1;
-            }
-            else
-            {
-                spinnumber = spinnumber + 1;
-            }         
-
-            if (countLeft <= 0)
-            {
-                timer.Stop();
-            }
-
-		}
-
-        timer.Elapsed += ( sender, e ) => HandleTimer(sender, e);
-		timer.Start();
-
-        //Console.ReadLine(); // To make sure the console app keeps running.
-        System.Threading.Thread.Sleep(duration * 1000);
-       
-        timer.Dispose();       
-        Console.WriteLine("_");
-
-        return "Spinned";
     }
 }

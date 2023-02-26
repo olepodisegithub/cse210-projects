@@ -32,7 +32,7 @@ public class BreathingActivity : Activiy
         DisplaySpinner(3);
         BreathingDisplayCountDown();
         DisplayEndingMessage();
-        DisplaySpinner(3);
+        DisplaySpinner(4);
     }
 
     public void BreathingDisplayCountDown()
@@ -42,28 +42,31 @@ public class BreathingActivity : Activiy
         int countLeft = ((GetDuration() * 1000));
         int countInhale = _inhailingDuration * 1000;
         int countExhale = _exhailingDuration * 1000;
-        int displaycount = _inhailingDuration;
+        string displaycount = _inhailingDuration.ToString();
 
         void HandleTimer(object sender, EventArgs e)
 		{
             if (_alternatingMessage == "in")
             {
                 countInhale = countInhale - 1000;
-                displaycount = (countInhale /1000);
+                displaycount = (countInhale /1000).ToString();
                 ClearLine();
             }
             else if (_alternatingMessage == "out")
             {
                 countExhale = countExhale - 1000;
-                displaycount = (countExhale /1000);
+                displaycount = (countExhale /1000).ToString();
                 ClearLine();
             }
+            
+            Console.WriteLine($"Breath {_alternatingMessage}..{displaycount}");
+           
 
             if (countInhale <= 0)
             {
                 countInhale = _inhailingDuration * 1000;
                 _alternatingMessage = "out";
-                displaycount = _exhailingDuration;
+                displaycount = _exhailingDuration.ToString();
                 Console.WriteLine();
             }
 
@@ -71,13 +74,12 @@ public class BreathingActivity : Activiy
             {
                 countExhale = _exhailingDuration * 1000;
                 _alternatingMessage = "in";
-                displaycount = _inhailingDuration;
+                displaycount = _inhailingDuration.ToString();
                 Console.WriteLine();
                 Console.WriteLine();
             }
             
             countLeft = countLeft - 1000;
-            Console.WriteLine($"Breath {_alternatingMessage}..{displaycount}");
             
 			
             if (countLeft <= 0)
