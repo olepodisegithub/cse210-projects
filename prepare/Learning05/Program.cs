@@ -15,9 +15,7 @@ class Program
         Console.Clear();
         foreach(Shape sh in _shapes)
         {
-            Console.WriteLine();
-            Console.WriteLine(sh.GetColor());
-            Console.WriteLine($"Area = {sh.GetArea()}");
+            Console.WriteLine($"The area of the {sh.GetColor()} shape is {sh.GetArea()}");
         } 
         Console.WriteLine();     
     }
