@@ -1,4 +1,5 @@
 Simple|Simple:2023/03/12 19:49:37|Give a talk|Give a talk this month|10|Completed
 Eternal|Eternal:2023/03/12 19:50:32|Read scriptures|Read scriptures every day|5|Not Completed
 Check List|Check List:2023/03/12 19:52:25|Temple vist|Go to the temple as many as possible|5|Completed|3|100
+Check List|Check List:2023/03/17 02:47:41|hghhh|jjjkihh|15|Not Completed|5|100
 Daily|Daily:2023/03/12 19:54:48|Exercise|Exercise every day|15|Not Completed|2023/03/01 00:00:00|2023/03/30 00:00:00|5

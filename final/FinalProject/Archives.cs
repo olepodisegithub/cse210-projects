@@ -1,0 +1,4 @@
+class Archives : FileType
+{
+    
+}
