@@ -1,6 +1,6 @@
 class Images : FileType
 {
-    public Images(int number,string name,int typeid) : base(number,name,typeid)
+    public Images(int number,string name,int typeId) : base(number,name,typeId)
     {
        
     }
