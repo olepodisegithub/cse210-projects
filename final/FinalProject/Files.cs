@@ -20,16 +20,24 @@ public class Files
     public int getFileTypeID()
     {
         int num = 0;
-        string[] entrylines = System.IO.File.ReadAllLines("FileExtensions.txt");
-        foreach (string line in entrylines)
+        try
         {
-            string[] columns = line.Split("=");
-
-            string text = columns[1];
-            if (text.ToLower() == _fileExtension.ToLower())
+            string[] entrylines = System.IO.File.ReadAllLines("FileExtensions.txt");
+            foreach (string line in entrylines)
             {
-                num = int.Parse(columns[2]);
+                string[] columns = line.Split("=");
+
+                string text = columns[1];
+                if (text.ToLower() == _fileExtension.ToLower())
+                {
+                    num = int.Parse(columns[2]);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
         return num;
     }

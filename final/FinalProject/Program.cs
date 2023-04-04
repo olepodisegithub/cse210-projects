@@ -26,125 +26,141 @@ class Program
     private static List<Images> _imageExtensions = new List<Images>();
     static void Main(string[] args)
     {
-        Console.WriteLine("File Manager App!");
-        SetupProgram();
-        FilingReport();
-
-        while (_quit == false)
+        try
         {
-            DisplayMenue("Main");
+            Console.WriteLine("File Manager App!");
+            SetupProgram();
+            FilingReport();
 
-            //check which menu item have been selected
-            if (_selectedMainMenuNumber == 1)
+            while (_quit == false)
             {
-                //Add Main Folder
-                ViewMainFolders();
-                AddMainFolder();
-                LoadMainFolders();
-            }
-            else if (_selectedMainMenuNumber == 2)
-            {
-                //view main folders
-                ViewMainFolders();
-                pauseProgram("Press enter to proceed!");
-            }
-            else if (_selectedMainMenuNumber == 3)
-            {
-                //remove Main Folder
-                DisplayMenue("Folders");
-                if (getYesOrNo("Are you sure to remove " + GetFolderNameByFolderNumber(_selectedFolderNumber) + " folder ? (yes/no)") == "yes")
+                DisplayMenue("Main");
+
+                //check which menu item have been selected
+                if (_selectedMainMenuNumber == 1)
                 {
-                    RemoveMainFolder(_selectedFolderNumber);
+                    //Add Main Folder
+                    ViewMainFolders();
+                    AddMainFolder();
                     LoadMainFolders();
                 }
-            }
-            else if (_selectedMainMenuNumber == 4)
-            {
-                // set sub folders
-                DisplayMenue("Folders");
-                AddSubFolder(_selectedFolderNumber);
-                LoadMainFolders();
-            }
-            else if (_selectedMainMenuNumber == 5)
-            {
-                //View Sub Folders
-                DisplayMenue("Folders");
-                ViewSubFolders(_selectedFolderNumber);
-                pauseProgram("Press enter to proceed!");
-            }
-            else if (_selectedMainMenuNumber == 6)
-            {
-                //Delete Sub Folder
-                DisplayMenue("Folders");
-                DisplayMenue("Sub Folders");
-                RemoveSubFolder(_selectedSubFolderNumber);
-                LoadSubFoldersToMainFolder();
-                pauseProgram("Done removing sub folder. Press enter to proceed!");
-            }
-            else if (_selectedMainMenuNumber == 7)
-            {
-                // set file extensions
-                DisplayMenue("File Types");
-                foreach (Menue m in _fileTypeMenue)
+                else if (_selectedMainMenuNumber == 2)
                 {
-                    if (m.GetItemNumber() == _selectedFileTypeNumber)
+                    //view main folders
+                    ViewMainFolders();
+                    pauseProgram("Press enter to proceed!");
+                }
+                else if (_selectedMainMenuNumber == 3)
+                {
+                    //remove Main Folder
+                    DisplayMenue("Folders");
+                    if (getYesOrNo("Are you sure to remove " + GetFolderNameByFolderNumber(_selectedFolderNumber) + " folder ? (yes/no)") == "yes")
                     {
-                        Console.WriteLine("");
-                        Console.WriteLine("Add file extension for " + m.GetMenueDesciption());
+                        RemoveMainFolder(_selectedFolderNumber);
+                        LoadMainFolders();
                     }
                 }
-                AddFileExtension(_selectedFileTypeNumber);
-                LoadExtensions();
-            }
-            else if (_selectedMainMenuNumber == 8)
-            {
-                //View file extensions
-                LoadExtensions();
-                ViewFileExtensions();
-                pauseProgram("Press enter to proceed!");
-            }
-            else if (_selectedMainMenuNumber == 9)
-            {
-                //remove extension
-                DisplayMenue("File Types");
-                foreach (Menue m in _fileTypeMenue)
+                else if (_selectedMainMenuNumber == 4)
                 {
-                    if (m.GetItemNumber() == _selectedFileTypeNumber)
-                    {
-                        Console.WriteLine("");
-                        Console.WriteLine("Remove file extension from " + m.GetMenueDesciption());
-                    }
+                    // set sub folders
+                    DisplayMenue("Folders");
+                    AddSubFolder(_selectedFolderNumber);
+                    LoadMainFolders();
                 }
-                DisplayMenue("File Extensions");
-                RemoveFileExtension(_selectedFileTypeID,_selectedExtensionNumber);
-                LoadExtensions();
-                pauseProgram("Done removing extension. Press enter to proceed!");
+                else if (_selectedMainMenuNumber == 5)
+                {
+                    //View Sub Folders
+                    DisplayMenue("Folders");
+                    ViewSubFolders(_selectedFolderNumber);
+                    pauseProgram("Press enter to proceed!");
+                }
+                else if (_selectedMainMenuNumber == 6)
+                {
+                    //Delete Sub Folder
+                    DisplayMenue("Folders");
+                    DisplayMenue("Sub Folders");
+                    RemoveSubFolder(_selectedSubFolderNumber);
+                    LoadSubFoldersToMainFolder();
+                    pauseProgram("Done removing sub folder. Press enter to proceed!");
+                }
+                else if (_selectedMainMenuNumber == 7)
+                {
+                    // set file extensions
+                    DisplayMenue("File Types");
+                    foreach (Menue m in _fileTypeMenue)
+                    {
+                        if (m.GetItemNumber() == _selectedFileTypeNumber)
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine("Add file extension for " + m.GetMenueDesciption());
+                        }
+                    }
+                    AddFileExtension(_selectedFileTypeNumber);
+                    LoadExtensions();
+                }
+                else if (_selectedMainMenuNumber == 8)
+                {
+                    //View file extensions
+                    LoadExtensions();
+                    ViewFileExtensions();
+                    pauseProgram("Press enter to proceed!");
+                }
+                else if (_selectedMainMenuNumber == 9)
+                {
+                    //remove extension
+                    DisplayMenue("File Types");
+                    foreach (Menue m in _fileTypeMenue)
+                    {
+                        if (m.GetItemNumber() == _selectedFileTypeNumber)
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine("Remove file extension from " + m.GetMenueDesciption());
+                        }
+                    }
+                    DisplayMenue("File Extensions");
+                    RemoveFileExtension(_selectedFileTypeID,_selectedExtensionNumber);
+                    LoadExtensions();
+                    pauseProgram("Done removing extension. Press enter to proceed!");
+                }
+                else if (_selectedMainMenuNumber == 10)
+                {
+                    //Check Filing Report
+                    FilingReport();
+                }
+                else if (_selectedMainMenuNumber == 11)
+                {
+                    //Quit
+                    System.Environment.Exit(0); 
+                }
             }
-            else if (_selectedMainMenuNumber == 10)
-            {
-                //Check Filing Report
-                FilingReport();
-            }
-            else if (_selectedMainMenuNumber == 11)
-            {
-                //Quit
-                System.Environment.Exit(0); 
-            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
     }
 
     public static void FilingReport()
     {
-        Console.Clear();
-        Console.WriteLine("");
-        Console.WriteLine("Report on files in your main folders");
-        int count = 0;
-        foreach (MainFolder f in _mainFolders)
+        try
         {
-            count = count + 1;
-            f.CheckValidations(count,_allowedSubs);
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine("Report on files in your main folders");
+            int count = 0;
+            foreach (MainFolder f in _mainFolders)
+            {
+                count = count + 1;
+                f.CheckValidations(count,_allowedSubs);
+            }
+            pauseProgram("Press enter to proceed!");
         }
-        pauseProgram("Press enter to proceed!");
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
+        }
     }
     public static void SetupProgram()
     {
@@ -166,160 +182,192 @@ class Program
 
     public static void RemoveMainFolder(int folderNumber)
     {
-        //clear main folder file
-        string clearpath = @"MainFolders.txt";
-        File.WriteAllText(clearpath, String.Empty);
-
-        //save to the file after clearing
-        string path = @"MainFolders.txt";
-        using (StreamWriter sw = File.AppendText(path))
+        try
         {
-            sw.WriteLine("MainFolderNumber=FolderName=FolderLocation=Achives=Documents=Images=Movies=Music=Programs");
-            foreach (MainFolder f in _mainFolders)
+            //clear main folder file
+            string clearpath = @"MainFolders.txt";
+            File.WriteAllText(clearpath, String.Empty);
+
+            //save to the file after clearing
+            string path = @"MainFolders.txt";
+            using (StreamWriter sw = File.AppendText(path))
             {
-                if (f.GetFolderNumber() != folderNumber)
+                sw.WriteLine("MainFolderNumber=FolderName=FolderLocation=Achives=Documents=Images=Movies=Music=Programs");
+                foreach (MainFolder f in _mainFolders)
                 {
-                    //pauseProgram(f.GetFolderNumber() + " : " + f.GetFolderName() + " : " + f.GetFolderLocation() + " : " + f.GetArchivesAllowed() + " : " + f.GetDocsAllowed() + " : " + f.GetImagesAllowed() + " : " + f.GetMoviesAllowed() + " : " + f.GetMusicAllowed() + " : " + f.GetProgramsAllowed());
-                    sw.WriteLine(f.GetFolderNumber() + "=" + f.GetFolderName() + "=" + f.GetFolderLocation() + "=" + f.GetArchivesAllowed() + "=" + f.GetDocsAllowed() + "=" + f.GetImagesAllowed() + "=" + f.GetMoviesAllowed() + "=" + f.GetMusicAllowed() + "=" + f.GetProgramsAllowed());
+                    if (f.GetFolderNumber() != folderNumber)
+                    {
+                        //pauseProgram(f.GetFolderNumber() + " : " + f.GetFolderName() + " : " + f.GetFolderLocation() + " : " + f.GetArchivesAllowed() + " : " + f.GetDocsAllowed() + " : " + f.GetImagesAllowed() + " : " + f.GetMoviesAllowed() + " : " + f.GetMusicAllowed() + " : " + f.GetProgramsAllowed());
+                        sw.WriteLine(f.GetFolderNumber() + "=" + f.GetFolderName() + "=" + f.GetFolderLocation() + "=" + f.GetArchivesAllowed() + "=" + f.GetDocsAllowed() + "=" + f.GetImagesAllowed() + "=" + f.GetMoviesAllowed() + "=" + f.GetMusicAllowed() + "=" + f.GetProgramsAllowed());
+                    }
+                }
+            }
+
+            //clear sub folder file
+            string clearsubpath = @"SubFolders.txt";
+            File.WriteAllText(clearsubpath, String.Empty);
+
+            //save to the file after clearing
+            string subpath = @"SubFolders.txt";
+            using (StreamWriter sw = File.AppendText(subpath))
+            {
+                sw.WriteLine("SubFolderNumber=FolderName=FolderLocation=MainFolderNumber");
+                foreach (SubFolder sf in _allowedSubs)
+                {
+                    if (sf.GetMainFolderNumber() != folderNumber)
+                    {
+                        sw.WriteLine(sf.GetFolderNumber() + "=" + sf.GetFolderName() + "=" + sf.GetFolderLocation() + "=" + sf.GetMainFolderNumber());
+                    }
                 }
             }
         }
-
-        //clear sub folder file
-        string clearsubpath = @"SubFolders.txt";
-        File.WriteAllText(clearsubpath, String.Empty);
-
-        //save to the file after clearing
-        string subpath = @"SubFolders.txt";
-        using (StreamWriter sw = File.AppendText(subpath))
+        catch (Exception ex)
         {
-            sw.WriteLine("SubFolderNumber=FolderName=FolderLocation=MainFolderNumber");
-            foreach (SubFolder sf in _allowedSubs)
-            {
-                if (sf.GetMainFolderNumber() != folderNumber)
-                {
-                    sw.WriteLine(sf.GetFolderNumber() + "=" + sf.GetFolderName() + "=" + sf.GetFolderLocation() + "=" + sf.GetMainFolderNumber());
-                }
-            }
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
     }
 
     public static void RemoveSubFolder(int folderNumber)
     {
-        //clear sub folder file
-        string clearsubpath = @"SubFolders.txt";
-        File.WriteAllText(clearsubpath, String.Empty);
-
-        //save to the file after clearing
-        string subpath = @"SubFolders.txt";
-        using (StreamWriter sw = File.AppendText(subpath))
+        try
         {
-            sw.WriteLine("SubFolderNumber=FolderName=FolderLocation=MainFolderNumber");
-            foreach (SubFolder sf in _allowedSubs)
+            //clear sub folder file
+            string clearsubpath = @"SubFolders.txt";
+            File.WriteAllText(clearsubpath, String.Empty);
+
+            //save to the file after clearing
+            string subpath = @"SubFolders.txt";
+            using (StreamWriter sw = File.AppendText(subpath))
             {
-                if (sf.GetFolderNumber() != folderNumber)
+                sw.WriteLine("SubFolderNumber=FolderName=FolderLocation=MainFolderNumber");
+                foreach (SubFolder sf in _allowedSubs)
                 {
-                    sw.WriteLine(sf.GetFolderNumber() + "=" + sf.GetFolderName() + "=" + sf.GetFolderLocation() + "=" + sf.GetMainFolderNumber());
+                    if (sf.GetFolderNumber() != folderNumber)
+                    {
+                        sw.WriteLine(sf.GetFolderNumber() + "=" + sf.GetFolderName() + "=" + sf.GetFolderLocation() + "=" + sf.GetMainFolderNumber());
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
     }
 
     public static void RemoveFileExtension(int fileTypeId,int extensionNumber)
     {
-        //clear sub folder file
-        string clearsubpath = @"FileExtensions.txt";
-        File.WriteAllText(clearsubpath, String.Empty);
-
-        //save to the file after clearing
-        string subpath = @"FileExtensions.txt";
-        using (StreamWriter sw = File.AppendText(subpath))
+        try
         {
-            sw.WriteLine("ExtensionNumber=Name=FileTypeID");
-            
-            foreach (Archives v in _archiveExtensions)
-            {
-                if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
-                {
-                    
-                }
-                else
-                {
-                    sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
-                }
-            }
+            //clear sub folder file
+            string clearsubpath = @"FileExtensions.txt";
+            File.WriteAllText(clearsubpath, String.Empty);
 
-            foreach (Documents v in _documentExtensions)
+            //save to the file after clearing
+            string subpath = @"FileExtensions.txt";
+            using (StreamWriter sw = File.AppendText(subpath))
             {
-                if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                sw.WriteLine("ExtensionNumber=Name=FileTypeID");
+                
+                foreach (Archives v in _archiveExtensions)
                 {
-                    
+                    if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                    {
+                        
+                    }
+                    else
+                    {
+                        sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
+                    }
                 }
-                else
-                {
-                    sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
-                }
-            }
 
-            foreach (Music v in _musicExtensions)
-            {
-                if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                foreach (Documents v in _documentExtensions)
                 {
-                    
+                    if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                    {
+                        
+                    }
+                    else
+                    {
+                        sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
+                    }
                 }
-                else
-                {
-                    sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
-                }
-            }
 
-            foreach (Images v in _imageExtensions)
-            {
-                if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                foreach (Music v in _musicExtensions)
                 {
-                    
+                    if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                    {
+                        
+                    }
+                    else
+                    {
+                        sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
+                    }
                 }
-                else
-                {
-                    sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
-                }
-            }
 
-            foreach (Movies v in _movieExtensions)
-            {
-                if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                foreach (Images v in _imageExtensions)
                 {
-                    
+                    if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                    {
+                        
+                    }
+                    else
+                    {
+                        sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
+                    }
                 }
-                else
-                {
-                    sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
-                }
-            }
 
-            foreach (Programs v in _programExtensions)
-            {
-                if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                foreach (Movies v in _movieExtensions)
                 {
-                    
+                    if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                    {
+                        
+                    }
+                    else
+                    {
+                        sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
+                    }
                 }
-                else
+
+                foreach (Programs v in _programExtensions)
                 {
-                    sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
+                    if ((v.GetExtensionNumber() == extensionNumber) && (v.GetFileTypeID() == fileTypeId))
+                    {
+                        
+                    }
+                    else
+                    {
+                        sw.WriteLine(v.GetExtensionNumber() + "=" + v.GetExtension() + "=" + v.GetFileTypeID());
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
     }
 
     public static string GetFolderNameByFolderNumber(int folderNumber)
     {
         string response = "";
-        foreach (MainFolder folder in _mainFolders)
+        try
         {
-            if (folder.GetFolderNumber() == folderNumber)
+            foreach (MainFolder folder in _mainFolders)
             {
-                response = folder.GetFolderName();
-            }
+                if (folder.GetFolderNumber() == folderNumber)
+                {
+                    response = folder.GetFolderName();
+                }
+            }  
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
         return response;
     }
@@ -327,125 +375,173 @@ class Program
     public static string GetFolderLocationByFolderNumber(int folderNumber)
     {
         string response = "";
-        foreach (MainFolder folder in _mainFolders)
+        try
         {
-            if (folder.GetFolderNumber() == folderNumber)
+            foreach (MainFolder folder in _mainFolders)
             {
-                response = folder.GetFolderLocation();
+                if (folder.GetFolderNumber() == folderNumber)
+                {
+                    response = folder.GetFolderLocation();
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
         return response;
     }
 
     public static void AddMainFolder()
     {
-        Console.WriteLine("");
-
-        int _folderNumber = NewMainFolderNumber();
-        string _folderName = getEnteredString("Enter Folder Name:");
-        string _folderLocation = getEnteredString("Enter Folder Location URL:");
-        if (Directory.Exists(@_folderLocation) == true)
-        {
-            string str = @"\";
-            if (_folderLocation.EndsWith(str) == false)
-            {
-                _folderLocation = _folderLocation + str;
-            }
-            string AllowArchives = getYesOrNo("Allow archives in this folder (yes/no) ?");
-            string AllowDocs = getYesOrNo("Allow documents in this folder (yes/no) ?");
-            string AllowImages = getYesOrNo("Allow images in this folder (yes/no) ?");
-            string AllowMovies = getYesOrNo("Allow movie files in this folder (yes/no) ?");
-            string AllowMusic = getYesOrNo("Allow music files in this folder (yes/no) ?");
-            string AllowPrograms = getYesOrNo("Allow other program files in this folder (yes/no) ?");
-
-            string path = @"MainFolders.txt";
-            using (StreamWriter sw = File.AppendText(path))
-            {
-                //pauseProgram(f.GetFolderNumber() + " : " + f.GetFolderName() + " : " + f.GetFolderLocation() + " : " + f.GetArchivesAllowed() + " : " + f.GetDocsAllowed() + " : " + f.GetImagesAllowed() + " : " + f.GetMoviesAllowed() + " : " + f.GetMusicAllowed() + " : " + f.GetProgramsAllowed());
-                sw.WriteLine(_folderNumber + "=" + _folderName + "=" + _folderLocation + "=" + AllowArchives + "=" + AllowDocs + "=" + AllowImages + "=" + AllowMovies + "=" + AllowMusic + "=" + AllowPrograms);
-            }
-            pauseProgram("Done adding folder. Press enter to proceed");
-        }
-        else
+        try
         {
             Console.WriteLine("");
-            pauseProgram("Folder does not exist. Create the folder or write the correct folder location. Press enter to proceed.");
+
+            int _folderNumber = NewMainFolderNumber();
+            string _folderName = getEnteredString("Enter Folder Name:");
+            string _folderLocation = getEnteredString("Enter Folder Location URL:");
+            if (Directory.Exists(@_folderLocation) == true)
+            {
+                string str = @"\";
+                if (_folderLocation.EndsWith(str) == false)
+                {
+                    _folderLocation = _folderLocation + str;
+                }
+                string AllowArchives = getYesOrNo("Allow archives in this folder (yes/no) ?");
+                string AllowDocs = getYesOrNo("Allow documents in this folder (yes/no) ?");
+                string AllowImages = getYesOrNo("Allow images in this folder (yes/no) ?");
+                string AllowMovies = getYesOrNo("Allow movie files in this folder (yes/no) ?");
+                string AllowMusic = getYesOrNo("Allow music files in this folder (yes/no) ?");
+                string AllowPrograms = getYesOrNo("Allow other program files in this folder (yes/no) ?");
+
+                string path = @"MainFolders.txt";
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    //pauseProgram(f.GetFolderNumber() + " : " + f.GetFolderName() + " : " + f.GetFolderLocation() + " : " + f.GetArchivesAllowed() + " : " + f.GetDocsAllowed() + " : " + f.GetImagesAllowed() + " : " + f.GetMoviesAllowed() + " : " + f.GetMusicAllowed() + " : " + f.GetProgramsAllowed());
+                    sw.WriteLine(_folderNumber + "=" + _folderName + "=" + _folderLocation + "=" + AllowArchives + "=" + AllowDocs + "=" + AllowImages + "=" + AllowMovies + "=" + AllowMusic + "=" + AllowPrograms);
+                }
+                pauseProgram("Done adding folder. Press enter to proceed");
+            }
+            else
+            {
+                Console.WriteLine("");
+                pauseProgram("Folder does not exist. Create the folder or write the correct folder location. Press enter to proceed.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
     }
 
     public static void AddSubFolder(int mainFolderNumber)
     {
-        Console.WriteLine("");
-
-        int _folderNumber = NewSubFolderNumber();
-        string _folderName = getEnteredString("Enter Folder Name:");
-        string _folderLocation = GetFolderLocationByFolderNumber(mainFolderNumber);
-        if (Directory.Exists(@_folderLocation) == true)
-        {
-            string str = @"\";
-            if (_folderLocation.EndsWith(str) == false)
-            {
-                _folderLocation = _folderLocation + str;
-            }
-            
-            //save to the file after clearing
-            string path = @"SubFolders.txt";
-            using (StreamWriter sw = File.AppendText(path))
-            {
-                sw.WriteLine(_folderNumber + "=" + _folderName + "=" + _folderLocation + "=" + mainFolderNumber);
-            }
-            
-            pauseProgram("Done adding folder. Press enter to proceed");
-        }
-        else
+        try
         {
             Console.WriteLine("");
-            pauseProgram("Main Folder does not exist. Create the folder or write the correct folder location. Press enter to proceed.");
+
+            int _folderNumber = NewSubFolderNumber();
+            string _folderName = getEnteredString("Enter Folder Name:");
+            string _folderLocation = GetFolderLocationByFolderNumber(mainFolderNumber);
+            if (Directory.Exists(@_folderLocation) == true)
+            {
+                string str = @"\";
+                if (_folderLocation.EndsWith(str) == false)
+                {
+                    _folderLocation = _folderLocation + str;
+                }
+                
+                //save to the file after clearing
+                string path = @"SubFolders.txt";
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    sw.WriteLine(_folderNumber + "=" + _folderName + "=" + _folderLocation + "=" + mainFolderNumber);
+                }
+                
+                pauseProgram("Done adding folder. Press enter to proceed");
+            }
+            else
+            {
+                Console.WriteLine("");
+                pauseProgram("Main Folder does not exist. Create the folder or write the correct folder location. Press enter to proceed.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
     }
 
     public static void AddFileExtension(int fileTypeId)
     {
-        Console.WriteLine("");
+        try
+        {
+            Console.WriteLine("");
 
-        int _extensionNumber = NewExtensionNumber();
-        string _extension = getEnteredString("Enter Extension:");
-        if (_extension.StartsWith(".") == true)
-        {
-            _extension = _extension.Replace(".","");
+            int _extensionNumber = NewExtensionNumber();
+            string _extension = getEnteredString("Enter Extension:");
+            if (_extension.StartsWith(".") == true)
+            {
+                _extension = _extension.Replace(".","");
+            }
+            
+            //save to the file after clearing
+            string path = @"FileExtensions.txt";
+            using (StreamWriter sw = File.AppendText(path))
+            {
+                sw.WriteLine(_extensionNumber + "=" + _extension + "=" + fileTypeId);
+            }
+            
+            pauseProgram("Done adding extension. Press enter to proceed");
         }
-        
-        //save to the file after clearing
-        string path = @"FileExtensions.txt";
-        using (StreamWriter sw = File.AppendText(path))
+        catch (Exception ex)
         {
-            sw.WriteLine(_extensionNumber + "=" + _extension + "=" + fileTypeId);
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
-        
-        pauseProgram("Done adding extension. Press enter to proceed");
     }
     public static int NewMainFolderNumber()
     {
         int num = 0;
-        foreach (MainFolder folder in _mainFolders)
+        try
         {
-            num = folder.GetFolderNumber();
+            foreach (MainFolder folder in _mainFolders)
+            {
+                num = folder.GetFolderNumber();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
         return num + 1;
     }
     public static int NewSubFolderNumber()
     {
         int num = 0;
-        string[] entrylines = System.IO.File.ReadAllLines("SubFolders.txt");
-        foreach (string line in entrylines)
+        try
         {
-            string[] columns = line.Split("=");
-
-            string firsttext = columns[0];
-            if (firsttext != "SubFolderNumber")
+            string[] entrylines = System.IO.File.ReadAllLines("SubFolders.txt");
+            foreach (string line in entrylines)
             {
-                num = int.Parse(columns[0]);
+                string[] columns = line.Split("=");
+
+                string firsttext = columns[0];
+                if (firsttext != "SubFolderNumber")
+                {
+                    num = int.Parse(columns[0]);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
         return num + 1;
     }
@@ -453,119 +549,151 @@ class Program
     public static int NewExtensionNumber()
     {
         int num = 0;
-        string[] entrylines = System.IO.File.ReadAllLines("FileExtensions.txt");
-        foreach (string line in entrylines)
+        try
         {
-            string[] columns = line.Split("=");
-
-            string firstText = columns[0];
-            if (firstText != "ExtensionNumber")
+            string[] entrylines = System.IO.File.ReadAllLines("FileExtensions.txt");
+            foreach (string line in entrylines)
             {
-                num = int.Parse(columns[0]);
+                string[] columns = line.Split("=");
+
+                string firstText = columns[0];
+                if (firstText != "ExtensionNumber")
+                {
+                    num = int.Parse(columns[0]);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
         return num + 1;
     }
     public static void LoadMainFolders()
     {
-        _mainFolders.Clear();
-
-        string[] entrylines = System.IO.File.ReadAllLines("MainFolders.txt");
-        foreach (string line in entrylines)
+        try
         {
-            string[] columns = line.Split("=");
+            _mainFolders.Clear();
 
-            string firsttext = columns[0];
-            if (firsttext != "MainFolderNumber")
+            string[] entrylines = System.IO.File.ReadAllLines("MainFolders.txt");
+            foreach (string line in entrylines)
             {
-                int _folderNumber = int.Parse(columns[0]);
-                string _folderName = columns[1];
-                string _folderLocation = columns[2];
-                string allowArchives = columns[3];
-                string allowDocs = columns[4];
-                string allowImages = columns[5];
-                string allowMovies = columns[6];
-                string allowMusic = columns[7];
-                string allowPrograms = columns[8];
+                string[] columns = line.Split("=");
 
-                //pauseProgram(_folderNumber + " : " + _folderName + " : " + _folderLocation + " : " + AllowArchives + " : " + AllowDocs + " : " + AllowImages + " : " + AllowMovies + " : " + AllowMusic + " : " + AllowPrograms);
-                _mainFolders.Add(new MainFolder(_folderNumber,_folderName,_folderLocation,allowArchives,allowDocs,allowImages,allowMovies,allowMusic,allowPrograms));
+                string firsttext = columns[0];
+                if (firsttext != "MainFolderNumber")
+                {
+                    int _folderNumber = int.Parse(columns[0]);
+                    string _folderName = columns[1];
+                    string _folderLocation = columns[2];
+                    string allowArchives = columns[3];
+                    string allowDocs = columns[4];
+                    string allowImages = columns[5];
+                    string allowMovies = columns[6];
+                    string allowMusic = columns[7];
+                    string allowPrograms = columns[8];
+
+                    //pauseProgram(_folderNumber + " : " + _folderName + " : " + _folderLocation + " : " + AllowArchives + " : " + AllowDocs + " : " + AllowImages + " : " + AllowMovies + " : " + AllowMusic + " : " + AllowPrograms);
+                    _mainFolders.Add(new MainFolder(_folderNumber,_folderName,_folderLocation,allowArchives,allowDocs,allowImages,allowMovies,allowMusic,allowPrograms));
+                }
             }
+            LoadSubFoldersToMainFolder();
         }
-        LoadSubFoldersToMainFolder();
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
+        }
     }
 
     public static void LoadSubFoldersToMainFolder()
     {
-        _allowedSubs.Clear();
-
-        //get sub folders and load them to the allowed subs variable of each main folder
-        string[] entrylines = System.IO.File.ReadAllLines("SubFolders.txt");
-        foreach (string line in entrylines)
+        try
         {
-            string[] columns = line.Split("=");
+            _allowedSubs.Clear();
 
-            string firsttext = columns[0];
-            if (firsttext != "SubFolderNumber")
+            //get sub folders and load them to the allowed subs variable of each main folder
+            string[] entrylines = System.IO.File.ReadAllLines("SubFolders.txt");
+            foreach (string line in entrylines)
             {
-                int _folderNumber = int.Parse(columns[0]);
-                string _folderName = columns[1];
-                string _folderLocation = columns[2];
-                int _mainfoldernumber = int.Parse(columns[3]);
+                string[] columns = line.Split("=");
 
-                _allowedSubs.Add(new SubFolder(_folderNumber,_folderName,_folderLocation,_mainfoldernumber));
+                string firsttext = columns[0];
+                if (firsttext != "SubFolderNumber")
+                {
+                    int _folderNumber = int.Parse(columns[0]);
+                    string _folderName = columns[1];
+                    string _folderLocation = columns[2];
+                    int _mainfoldernumber = int.Parse(columns[3]);
+
+                    _allowedSubs.Add(new SubFolder(_folderNumber,_folderName,_folderLocation,_mainfoldernumber));
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
     }
 
     public static void LoadExtensions()
     {
-        _archiveExtensions.Clear();
-        _documentExtensions.Clear();
-        _musicExtensions.Clear();
-        _movieExtensions.Clear();
-        _programExtensions.Clear();
-        _imageExtensions.Clear();
-        
-        //get sub folders and load them to the allowed subs variable of each main folder
-        string[] entrylines = System.IO.File.ReadAllLines("FileExtensions.txt");
-        foreach (string line in entrylines)
+        try
         {
-            string[] columns = line.Split("=");
-
-            string firsttext = columns[0];
-            if (firsttext != "ExtensionNumber")
+            _archiveExtensions.Clear();
+            _documentExtensions.Clear();
+            _musicExtensions.Clear();
+            _movieExtensions.Clear();
+            _programExtensions.Clear();
+            _imageExtensions.Clear();
+            
+            //get sub folders and load them to the allowed subs variable of each main folder
+            string[] entrylines = System.IO.File.ReadAllLines("FileExtensions.txt");
+            foreach (string line in entrylines)
             {
-                int _extensionNumber = int.Parse(columns[0]);
-                string _extension = columns[1];
-                int _fileTypeId = int.Parse(columns[2]);
+                string[] columns = line.Split("=");
 
-                if (_fileTypeId == 1)
+                string firsttext = columns[0];
+                if (firsttext != "ExtensionNumber")
                 {
-                   _archiveExtensions.Add(new Archives(_extensionNumber,_extension,_fileTypeId));
+                    int _extensionNumber = int.Parse(columns[0]);
+                    string _extension = columns[1];
+                    int _fileTypeId = int.Parse(columns[2]);
 
-                }
-                if (_fileTypeId == 2)
-                {
-                    _documentExtensions.Add(new Documents(_extensionNumber,_extension,_fileTypeId));
-                }
-                if (_fileTypeId == 3)
-                {
-                    _musicExtensions.Add(new Music(_extensionNumber,_extension,_fileTypeId));
-                }
-                if (_fileTypeId == 4)
-                {
-                    _programExtensions.Add(new Programs(_extensionNumber,_extension,_fileTypeId));
-                }
-                if (_fileTypeId == 5)
-                {
-                    _movieExtensions.Add(new Movies(_extensionNumber,_extension,_fileTypeId));
-                }
-                if (_fileTypeId == 6)
-                {
-                    _imageExtensions.Add(new Images(_extensionNumber,_extension,_fileTypeId));
+                    if (_fileTypeId == 1)
+                    {
+                    _archiveExtensions.Add(new Archives(_extensionNumber,_extension,_fileTypeId));
+
+                    }
+                    if (_fileTypeId == 2)
+                    {
+                        _documentExtensions.Add(new Documents(_extensionNumber,_extension,_fileTypeId));
+                    }
+                    if (_fileTypeId == 3)
+                    {
+                        _musicExtensions.Add(new Music(_extensionNumber,_extension,_fileTypeId));
+                    }
+                    if (_fileTypeId == 4)
+                    {
+                        _programExtensions.Add(new Programs(_extensionNumber,_extension,_fileTypeId));
+                    }
+                    if (_fileTypeId == 5)
+                    {
+                        _movieExtensions.Add(new Movies(_extensionNumber,_extension,_fileTypeId));
+                    }
+                    if (_fileTypeId == 6)
+                    {
+                        _imageExtensions.Add(new Images(_extensionNumber,_extension,_fileTypeId));
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
     }
     public static void ViewMainFolders()
@@ -629,61 +757,69 @@ class Program
 
     public static void SetFileExtensionssMenu(int fileTypeId)
     {
-        _extensionsMenue.Clear();
-        int count = 0;
-        if (fileTypeId == 1)
+        try
         {
-            count = 0;
-            foreach (Archives v in _archiveExtensions)
+            _extensionsMenue.Clear();
+            int count = 0;
+            if (fileTypeId == 1)
             {
-                count =count + 1;
-                _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
+                count = 0;
+                foreach (Archives v in _archiveExtensions)
+                {
+                    count =count + 1;
+                    _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
+                }
+            }
+            else if (fileTypeId == 2)
+            {
+                count =0;
+                foreach (Documents v in _documentExtensions)
+                {
+                    count = count + 1;
+                    _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
+                }
+            }
+            else if (fileTypeId == 3)
+            {
+                count =0;
+                foreach (Music v in _musicExtensions)
+                {
+                    count = count + 1;
+                    _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
+                }
+            }
+            else if (fileTypeId == 4)
+            {
+                count =0;
+                foreach (Images v in _imageExtensions)
+                {
+                    count = count + 1;
+                    _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
+                }
+            }
+            else if (fileTypeId == 5)
+            {
+                count =0;
+                foreach (Movies v in _movieExtensions)
+                {
+                    count = count + 1;
+                    _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
+                }
+            }
+            else if (fileTypeId == 6)
+            {
+                count =0;
+                foreach (Programs v in _programExtensions)
+                {
+                    count = count + 1;
+                    _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
+                }
             }
         }
-        else if (fileTypeId == 2)
+        catch (Exception ex)
         {
-            count =0;
-            foreach (Documents v in _documentExtensions)
-            {
-                count = count + 1;
-                _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
-            }
-        }
-        else if (fileTypeId == 3)
-        {
-            count =0;
-            foreach (Music v in _musicExtensions)
-            {
-                count = count + 1;
-                _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
-            }
-        }
-        else if (fileTypeId == 4)
-        {
-            count =0;
-            foreach (Images v in _imageExtensions)
-            {
-                count = count + 1;
-                _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
-            }
-        }
-        else if (fileTypeId == 5)
-        {
-            count =0;
-            foreach (Movies v in _movieExtensions)
-            {
-                count = count + 1;
-                _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
-            }
-        }
-        else if (fileTypeId == 6)
-        {
-            count =0;
-            foreach (Programs v in _programExtensions)
-            {
-                count = count + 1;
-                _extensionsMenue.Add(new Menue(count,v.GetExtension(),v.GetFileTypeID().ToString()));
-            }
+            Console.WriteLine("Exception Message:", ex.Message);
+            Console.WriteLine("Exception source:", ex.Source);
         }
     }
 
