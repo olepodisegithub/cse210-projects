@@ -1,0 +1,7 @@
+MainFolderNumber=FolderName=FolderLocation=Achives=Documents=Images=Movies=Music=Programs
+2=documents=c:\users\oatsl\documents\=yes=yes=no=no=no=yes
+3=music=c:\users\oatsl\music\=no=no=no=no=yes=no
+4=videos=c:\users\oatsl\videos\=no=no=no=yes=no=no
+5=pictures=c:\users\oatsl\onedrive\pictures\=no=no=yes=no=no=no
+6=downloads=c:\users\oatsl\downloads\=no=no=no=no=no=no
+7=desktop=c:\users\oatsl\onedrive\desktop\=no=no=no=no=no=yes

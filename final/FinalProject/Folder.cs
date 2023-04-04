@@ -2,11 +2,17 @@ abstract class Folder
 {
     private String _folderName = "";
     private String _folderLocation = "";
+    private int _folderNumber = 0;
 
-    public Folder(string name,string location)
+    public Folder(int number,string name,string location)
     {
+        _folderNumber = number;
         _folderName = name;
         _folderLocation = location;
+    }
+    public int GetFolderNumber()
+    {
+        return _folderNumber;
     }
     public string GetFolderName()
     {
@@ -24,7 +30,7 @@ abstract class Folder
     {
         _folderLocation = location;
     }
+
     public abstract void DisplayFolderDetails();
     
-    public abstract void SaveFolder();
 }

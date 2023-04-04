@@ -1,6 +1,14 @@
 public class FileType
 {
+    public FileType(int num,string name,int typeid)
+    {
+       number = num;
+       _extension = name;
+       filetypeid = typeid;
+    }
+    private int number = 0;
     private String _extension = "";
+    private int filetypeid = 0;
 
     public string GetExtension()
     {
@@ -10,5 +18,20 @@ public class FileType
     public void SetExtension(string extension)
     {
         _extension =  extension;
+    }
+
+    public int GetExtensionNumber()
+    {
+        return number;
+    }
+
+    public int GetFileTypeID()
+    {
+        return filetypeid;
+    }
+
+    public void DisplaExtension(int count)
+    {
+        Console.WriteLine("   " + count + ". " + _extension);
     }
 }

@@ -1,0 +1,9 @@
+SubFolderNumber=FolderName=FolderLocation=MainFolderNumber
+1=School=c:\users\oatsl\documents\=2
+2=Church=c:\users\oatsl\documents\=2
+3=Work=c:\users\oatsl\documents\=2
+4=Others=c:\users\oatsl\documents\=2
+5=Screenshots=c:\users\oatsl\onedrive\pictures\=5
+6=My Photos=c:\users\oatsl\onedrive\pictures\=5
+7=Church=c:\users\oatsl\music\=3
+8=Others=c:\users\oatsl\music\=3

@@ -283,7 +283,7 @@ class Program
     public static void ClearFile()
     {
         string path = @"Goals.txt";
-         File.WriteAllText(path, String.Empty);
+        File.WriteAllText(path, String.Empty);
     }
     public static void LoadGoals()
     {

@@ -25,4 +25,8 @@ public class Menue
     {
         return _itemNumber;
     }
+    public string GetMenueDesciption()
+    {
+        return _menueDescription;
+    }
 }

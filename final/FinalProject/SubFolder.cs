@@ -1,16 +1,16 @@
 class SubFolder : Folder
 {
-    public SubFolder(string name,string location) : base(name,location)
+     private int _mainFolderNumber = 0;
+    public SubFolder(int foldernumber,string name,string location,int mainfoldernumber) : base(foldernumber,name,location)
     {
-       
+       _mainFolderNumber = mainfoldernumber;
     }
-
     public override void DisplayFolderDetails()
     {
-        
+        Console.WriteLine(GetFolderName() + " @ " + GetFolderLocation());
     }
-    public override void SaveFolder()
+    public int GetMainFolderNumber()
     {
-        
+        return _mainFolderNumber;
     }
 }
