@@ -1,47 +1,47 @@
 class MainFolder : Folder
 {
-    public static List<Files> fileList = new List<Files>();
-    public static List<SubFolder> subs = new List<SubFolder>();
-    private string archivesAllowed;
-    private string documentsAllowed;
-    private string imagesAllowed;
-    private string moviesAllowed;
-    private string musicAllowed;
-    private string programsAllowed;
+    public static List<Files> _fileList = new List<Files>();
+    public static List<SubFolder> _subs = new List<SubFolder>();
+    private string _archivesAllowed;
+    private string _documentsAllowed;
+    private string _imagesAllowed;
+    private string _moviesAllowed;
+    private string _musicAllowed;
+    private string _programsAllowed;
 
     public string GetArchivesAllowed()
     {
-        return archivesAllowed;
+        return _archivesAllowed;
     }
     public string GetDocsAllowed()
     {
-        return documentsAllowed;
+        return _documentsAllowed;
     }
     public string GetImagesAllowed()
     {
-        return imagesAllowed;
+        return _imagesAllowed;
     }
     public string GetMoviesAllowed()
     {
-        return moviesAllowed;
+        return _moviesAllowed;
     }
     public string GetMusicAllowed()
     {
-        return musicAllowed;
+        return _musicAllowed;
     }
     public string GetProgramsAllowed()
     {
-        return programsAllowed;
+        return _programsAllowed;
     }
 
-    public MainFolder(int foldernumber,string name,string location,string archives,string docs,string images,string movies,string music,string programs) : base(foldernumber,name,location)
+    public MainFolder(int folderNumber,string name,string location,string archives,string docs,string images,string movies,string music,string programs) : base(folderNumber,name,location)
     {
-        archivesAllowed = archives;
-        documentsAllowed = docs;
-        imagesAllowed = images;
-        moviesAllowed = movies;
-        musicAllowed = music;
-        programsAllowed = programs;
+        _archivesAllowed = archives;
+        _documentsAllowed = docs;
+        _imagesAllowed = images;
+        _moviesAllowed = movies;
+        _musicAllowed = music;
+        _programsAllowed = programs;
     }
     
     public override void DisplayFolderDetails()
@@ -51,8 +51,8 @@ class MainFolder : Folder
     public void CheckValidations(int itemnumber,List<SubFolder> allowedSubs)
     {
         //files extensions
-        Boolean fileallowed = false;
-        fileList.Clear();
+        Boolean fileAllowed = false;
+        _fileList.Clear();
 
         int count = 0;
         string[] files = Directory.GetFiles(@GetFolderLocation());
@@ -64,64 +64,64 @@ class MainFolder : Folder
             string fileextension = columns[1];
             string[] foldsplit = filelocationandname.Split(@"\");
             string filename = foldsplit[foldsplit.Length-1];
-            fileList.Add(new Files(filename,fileextension));
+            _fileList.Add(new Files(filename,fileextension));
         }
 
         Console.WriteLine("");
         Console.WriteLine(itemnumber + ". Files not allowed in " + GetFolderLocation() + " from " + count);
-        foreach (Files f in fileList)
+        foreach (Files f in _fileList)
         {
             if (f.GetFileExtension().ToLower() != "ini")
             {
-                fileallowed = false;
+                fileAllowed = false;
                 if (f.getFileTypeID() == 1)
                 {
-                    if (archivesAllowed == "yes")
+                    if (_archivesAllowed == "yes")
                     {
-                        fileallowed = true;
+                        fileAllowed = true;
                     }
                 }
                 else if (f.getFileTypeID() == 2)
                 {
-                    if (documentsAllowed == "yes")
+                    if (_documentsAllowed == "yes")
                     {
-                        fileallowed = true;
+                        fileAllowed = true;
                     }
                 }
                 else if (f.getFileTypeID() == 3)
                 {
-                    if (musicAllowed == "yes")
+                    if (_musicAllowed == "yes")
                     {
-                        fileallowed = true;
+                        fileAllowed = true;
                     }
                 }
                 else if (f.getFileTypeID() == 4)
                 {
-                    if (programsAllowed == "yes")
+                    if (_programsAllowed == "yes")
                     {
-                        fileallowed = true;
+                        fileAllowed = true;
                     }
                 }
                 else if (f.getFileTypeID() == 5)
                 {
-                    if (moviesAllowed == "yes")
+                    if (_moviesAllowed == "yes")
                     {
-                        fileallowed = true;
+                        fileAllowed = true;
                     }
                 }
                 else if (f.getFileTypeID() == 6)
                 {
-                    if (imagesAllowed == "yes")
+                    if (_imagesAllowed == "yes")
                     {
-                        fileallowed = true;
+                        fileAllowed = true;
                     }
                 }
                 else
                 {
-                    fileallowed = false;
+                    fileAllowed = false;
                 }
 
-                if (fileallowed == false)
+                if (fileAllowed == false)
                 {
                     Console.WriteLine("   " + f.GetFileName() + "." + f.GetFileExtension());
                 }
@@ -129,34 +129,34 @@ class MainFolder : Folder
         }
 
         //check folders
-        subs.Clear();
+        _subs.Clear();
 
-        int foldercount = 0;
+        int folderCount = 0;
         string[] dirs = Directory.GetDirectories(@GetFolderLocation());
         foreach (string dir in dirs)
         {
-            foldercount = foldercount + 1;
+            folderCount = folderCount + 1;
             string[] foldsplit = dir.Split(@"\");
             string foldername = foldsplit[foldsplit.Length-1];
             
-            subs.Add(new SubFolder(foldercount,foldername,GetFolderLocation(),GetFolderNumber()));
+            _subs.Add(new SubFolder(folderCount,foldername,GetFolderLocation(),GetFolderNumber()));
         }
 
         Console.WriteLine("");
-        Console.WriteLine(itemnumber + ". Folders not allowed in " + GetFolderLocation() + " from " + foldercount);
-        Boolean foldercorrect = false;
-        foreach (SubFolder sf in subs)
+        Console.WriteLine(itemnumber + ". Folders not allowed in " + GetFolderLocation() + " from " + folderCount);
+        Boolean folderCorrect = false;
+        foreach (SubFolder sf in _subs)
         {
-            foldercorrect = false;
+            folderCorrect = false;
             foreach (SubFolder subs in allowedSubs)
             {
                 if ((sf.GetFolderName().ToLower() == subs.GetFolderName().ToLower()) && (sf.GetMainFolderNumber() == subs.GetMainFolderNumber()))
                 {
-                    foldercorrect = true;
+                    folderCorrect = true;
                 }
             }
 
-            if (foldercorrect == false)
+            if (folderCorrect == false)
             {
                 Console.WriteLine("   " + sf.GetFolderName());
             }

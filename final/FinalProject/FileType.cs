@@ -1,12 +1,12 @@
 public class FileType
 {
-    public FileType(int num,string name,int typeid)
+    public FileType(int num,string name,int typeId)
     {
-       number = num;
+       _number = num;
        _extension = name;
-       filetypeid = typeid;
+       filetypeid = typeId;
     }
-    private int number = 0;
+    private int _number = 0;
     private String _extension = "";
     private int filetypeid = 0;
 
@@ -22,7 +22,7 @@ public class FileType
 
     public int GetExtensionNumber()
     {
-        return number;
+        return _number;
     }
 
     public int GetFileTypeID()
